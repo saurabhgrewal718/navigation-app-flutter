@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import './category_meals_screen.dart';
 
@@ -18,8 +19,9 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.black,
       ),
       home: CatagoriesScreen(),
+      initialRoute: '/',
       routes: {
-        '/category-meals': (ctx) => CategoryMealsScreen(),
+        CategoryMealsScreen.routeName : (ctx) => CategoryMealsScreen(),
       },
     );
   }
