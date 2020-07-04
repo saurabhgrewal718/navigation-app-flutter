@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import './screens/meal_detail_screen.dart';
 import './screens/category_meals_screen.dart';
 import './screens/unknown_route_screen.dart';
+import './screens/tabs_screen.dart';
 
-import './screens/catagories_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,12 +17,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+//        primarySwatch: Colors.blue,
+        primaryColor: Colors.black,
         accentColor: Colors.orange,
       ),
-      home: CatagoriesScreen(),
+      // home: CatagoriesScreen(),
       initialRoute: '/',
       routes: {
+        '/': (ctx) => TabsScreen(),
         CategoryMealsScreen.routeName : (ctx) => CategoryMealsScreen(),
         MealDetailScreen.routeName : (ctx) => MealDetailScreen(),
       },
@@ -35,3 +37,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
