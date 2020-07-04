@@ -3,6 +3,32 @@ import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal_detail';
+  
+  Widget buildSelectionTitle(BuildContext context,String text){
+    return Container(
+      margin:EdgeInsets.symmetric(vertical:10),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 16),
+      ),
+    );
+  }
+
+  Widget buildContainer(Widget child){
+    return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color:Colors.grey),
+              ),
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              width: 350,
+              height: 200,
+              child: child,
+            );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -18,7 +44,8 @@ class MealDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title:Text('$pageTitle')),
-      body: Column(
+      body: SingleChildScrollView(
+        child:Column(
         children: <Widget>[
           //using the data passed from previous screen 
 
@@ -31,19 +58,35 @@ class MealDetailScreen extends StatelessWidget {
             width: double.infinity,
             child: Image.network(selectedMeal.imageUrl,fit: BoxFit.cover,),
           ),
-          Text(mealId,style: TextStyle(),),
-          Container(
-            margin: EdgeInsets.symmetric(vertical:10),
-            width: 400,
-            height: 200,
-            child: ListView.builder(
-              itemBuilder: (ctx,index) => Card(
-                color: Theme.of(context).accentColor,
-                child : Text(selectedMeal.ingredients[index]),
+          buildSelectionTitle(context,mealId),
+          buildContainer(
+            ListView.builder(
+                itemBuilder: (ctx,index) => Card(
+                  color: Theme.of(context).accentColor,
+                  child : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(selectedMeal.ingredients[index]),
+                  ),
+                ),
+                itemCount: selectedMeal.ingredients.length,)
+            ),
+            buildSelectionTitle(context,'Steps'),
+            buildContainer(
+              ListView.builder(
+                itemBuilder: (ctx,index) => Column(
+                  children: <Widget>[
+                    ListTile(
+                      leading: CircleAvatar(child: Text('${(index + 1)}'),),
+                      title: Text(selectedMeal.steps[index]),
+                    ),
+                    Divider(),
+                  ],
+                ),
+                itemCount: selectedMeal.steps.length,
               ),
-              itemCount: selectedMeal.ingredients.length,),
-          ),
+            ),
         ],
+      )
       )
     );
   }
